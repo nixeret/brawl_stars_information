@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         risultato.innerHTML = '<p>Caricamento in corso...</p>'; // Mostra un messaggio di caricamento
 
         // Costruzione dell'URL dinamico
-        const apiUrl = `https://newsapi.org/v2/everything?q=${query}&apiKey=c3173d2e9f024a4a843ea629bbd87f8f`;
+        const apiUrl = `https://newsapi.org/v2/everything?q=${query}&apiKey=5509419701b44f1faeb40e221bd8f1b8`;
 
         fetch(apiUrl)
             .then(response => response.json())
