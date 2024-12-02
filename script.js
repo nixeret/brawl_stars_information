@@ -1,17 +1,9 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let currentQuery = "brawl+stars"; // Query iniziale predefinita
-    let autoUpdateInterval; // Variabile per gestire l'intervallo di aggiornamento
-
+document.addEventListener("DOMContentLoaded", function() {
     // Funzione per caricare le notizie
-    function loadNews(query) {
-        currentQuery = query; // Aggiorna la query corrente
+    function loadNews() {
         const risultato = document.getElementById("risultato");
-        risultato.innerHTML = '<p>Caricamento in corso...</p>'; // Mostra un messaggio di caricamento
 
-        // Costruzione dell'URL dinamico
-        const apiUrl = `https://newsapi.org/v2/everything?q=${query}&apiKey=5509419701b44f1faeb40e221bd8f1b8`;
-
-        fetch(apiUrl)
+        fetch('https://newsapi.org/v2/everything?q=brawl+stars&apiKey=c3173d2e9f024a4a843ea629bbd87f8f')
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'ok' && data.articles.length > 0) {
@@ -39,40 +31,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         risultato.appendChild(articleDiv);
                     });
                 } else {
-                    risultato.innerHTML = '<p>Nessuna notizia trovata.</p>';
+                    risultato.innerHTML = 'Nessuna notizia trovata.';
                 }
             })
             .catch(error => {
-                risultato.innerHTML = '<p>Si è verificato un errore nel caricamento delle notizie.</p>';
+                risultato.innerHTML = 'Si è verificato un errore nel caricamento delle notizie.';
                 console.error(error);
             });
     }
 
-    // Funzione per avviare l'aggiornamento automatico
-    function startAutoUpdate() {
-        clearInterval(autoUpdateInterval); // Cancella l'intervallo precedente (se esiste)
-        autoUpdateInterval = setInterval(() => {
-            loadNews(currentQuery); // Carica le notizie per la query corrente
-        }, 300000); // Aggiorna ogni 5 minuti
-    }
+    // Carica le notizie al caricamento della pagina
+    loadNews();
 
-    // Event listeners per i pulsanti del menu
-    document.getElementById("notizie-btn").addEventListener("click", function () {
-        loadNews("brawl+stars");
-        startAutoUpdate(); // Riavvia l'intervallo di aggiornamento
-    });
-
-    document.getElementById("brawler-btn").addEventListener("click", function () {
-        loadNews("brawl+stars+new+brawler");
-        startAutoUpdate(); // Riavvia l'intervallo di aggiornamento
-    });
-
-    document.getElementById("brawltalk-btn").addEventListener("click", function () {
-        loadNews("brawl+stars+brawl+talk");
-        startAutoUpdate(); // Riavvia l'intervallo di aggiornamento
-    });
-
-    // Carica le notizie iniziali al caricamento della pagina
-    loadNews(currentQuery);
-    startAutoUpdate(); // Avvia l'intervallo di aggiornamento
+    // Esegui un aggiornamento delle notizie ogni 5 minuti (300000 ms)
+    setInterval(loadNews, 300000);
 });
