@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const risultato = document.getElementById("risultato");
+
+    // Variabile per tenere traccia del menu selezionato
+    let currentQuery = 'brawl stars';
+
     // Funzione per caricare le notizie
     function loadNews(query) {
-        const risultato = document.getElementById("risultato");
-
         fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=5509419701b44f1faeb40e221bd8f1b8`)
             .then(response => response.json())
             .then(data => {
@@ -40,22 +43,30 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 
-    // Carica le notizie per default (Notizie)
-    loadNews('brawl stars');
+    // Funzione per aggiornare il contenuto basato sul menu attivo
+    function updateContent() {
+        loadNews(currentQuery);
+    }
 
-    // Ascolta i cambiamenti del menù e carica le notizie appropriate
+    // Eventi per i pulsanti del menu
     document.getElementById('notizie').addEventListener('click', function() {
-        loadNews('brawl stars');
-    });
-    document.getElementById('nuovi-brawler').addEventListener('click', function() {
-        loadNews('nuovi brawler brawl stars');
-    });
-    document.getElementById('brawl-talk').addEventListener('click', function() {
-        loadNews('brawl talk');
+        currentQuery = 'brawl stars';
+        updateContent();
     });
 
-    // Esegui un aggiornamento delle notizie ogni 5 minuti (300000 ms)
-    setInterval(function() {
-        loadNews('brawl stars');
-    }, 300000);
+    document.getElementById('nuovi-brawler').addEventListener('click', function() {
+        currentQuery = 'nuovi brawler brawl stars';
+        updateContent();
+    });
+
+    document.getElementById('brawl-talk').addEventListener('click', function() {
+        currentQuery = 'brawl talk';
+        updateContent();
+    });
+
+    // Carica le notizie di default
+    updateContent();
+
+    // Esegui un aggiornamento delle notizie ogni 5 minuti
+    setInterval(updateContent, 300000);
 });
