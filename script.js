@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Funzione per caricare le notizie
     function loadNews(query) {
-        fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=5509419701b44f1faeb40e221bd8f1b8`)
+        fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=b338bdc2f19b4f1980c6dcb2277d90e6`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'ok' && data.articles.length > 0) {
