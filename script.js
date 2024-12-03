@@ -68,5 +68,5 @@ document.addEventListener("DOMContentLoaded", function() {
     updateContent();
 
     // Esegui un aggiornamento delle notizie ogni 5 minuti
-    setInterval(updateContent, 300000);
+    setInterval(updateContent, 600000);
 });
